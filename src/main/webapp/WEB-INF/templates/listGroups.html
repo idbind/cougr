@@ -1,0 +1,64 @@
+<!--
+  Copyright 2016 The MITRE Corporation
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+    http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<div class="container" ng-controller="ListGroupsCtrl as g">
+	
+	<div>
+		<form ng-submit="g.createNewGroup()">
+
+			<legend>Create Group</legend>
+
+			<label>Group Name</label> 
+			<input type="text" id="name" name="name" ng-model="g.newGroup.name" placeholder="Group Name"> 
+			</br>
+			<label>Description</label>
+			<input type="textarea" id="description" name="description" ng-model="g.newGroup.description" placeholder=""> 
+			</br>
+			<label>Is Public</label>
+			<input type="checkbox" id="ispublic" name="ispublic" ng-model="g.newGroup.ispublic">
+			</br>
+			<label>Is Open</label>
+			<input type="checkbox" id="isopen" name="isopen" ng-model="g.newGroup.isopen">
+			</br>
+			<span ng-if="g.owned_groups.length > 0" class="success">
+				<label>Is Sub Group: </label><input type="checkbox" id="issub" name="issub" ng-click="g.isSubGroup = true" >
+				</br>
+				<div class="success" ng-hide="!g.isSubGroup">
+					Parent Group: <select data-ng-model="g.parentGroup"
+							data-ng-options="g.name for g in g.owned_groups">                
+					</select>
+				</div>
+			</span>
+			<button class="btn btn-primary">Register</button>
+
+		</form>
+	</div>
+	
+	<div>
+		<!-- Main component for a primary marketing message or call to action -->
+		<div class="page-header">
+			<span>Groups</span>
+		</div>
+
+		<div ng-repeat="group in g.groups">
+			<table>
+				<tr>
+					<td><a href="#group/{{group.id}}">{{group.name}}</a></td>
+				</tr>
+			</table>
+		</div>
+	</div> 
+</div>
+
